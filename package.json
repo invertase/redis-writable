@@ -1,0 +1,43 @@
+{
+  "name": "redis-writable",
+  "version": "1.0.0",
+  "description": "Ultra fast conversion of commands and args to redis protocol writables.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "keywords": [
+    "resp",
+    "redis",
+    "redis-writable",
+    "writable",
+    "redis protocol",
+    "node_redis",
+    "ioredis"
+  ],
+  "scripts": {
+    "test": "istanbul cover --report lcov _mocha",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "benchmark": "node benchmark/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salakar/redis-writable.git"
+  },
+  "author": {
+    "name": "Mike Diarmid",
+    "email": "mike.diarmid@teamfa.com",
+    "url": "http://github.com/Salakar/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Salakar/redis-writable/issues"
+  },
+  "homepage": "https://github.com/Salakar/redis-writable#readme",
+  "devDependencies": {
+    "benchmark": "^2.1.0",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3"
+  }
+}

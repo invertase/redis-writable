@@ -10,9 +10,9 @@
 `npm i redis-writable`
 
 ```javascript
-const rw = require('redis-writable');
+const toWritable = require('redis-writable');
 
-console.log(rw.toWritable('SET', ['foo', 'bar']));
+console.log(toWritable('SET', ['foo', 'bar']));
 
 // *3
 // $3

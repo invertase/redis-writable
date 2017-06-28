@@ -12,7 +12,15 @@
 ```javascript
 const rw = require('redis-writable');
 
-console.log(rw.toWritable('SET', ['foo', 'bar']);
+console.log(rw.toWritable('SET', ['foo', 'bar']));
+
+// *3
+// $3
+// SET
+// $3
+// foo
+// $3
+// bar
 ```
 
 

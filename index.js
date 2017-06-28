@@ -1,16 +1,16 @@
 'use strict';
 
-var cmdCache = {};
-var cmdCachePartial = {};
+const cmdCache = {};
+const cmdCachePartial = {};
 
-var newLine = '\r\n';
-var zeroArg = '$1\r\n0\r\n';
-var oneArg = '$1\r\n1\r\n';
-var nullArg = '$4\r\nnull\r\n';
-var symbolArg = '$8\r\n[Symbol]\r\n';
-var undefArg = '$9\r\nundefined\r\n';
-var functionArg = '$10\r\n[Function]\r\n';
-var objectArg = '$15\r\n[object Object]\r\n';
+const newLine = '\r\n';
+const zeroArg = '$1\r\n0\r\n';
+const oneArg = '$1\r\n1\r\n';
+const nullArg = '$4\r\nnull\r\n';
+const symbolArg = '$8\r\n[Symbol]\r\n';
+const undefArg = '$9\r\nundefined\r\n';
+const functionArg = '$10\r\n[Function]\r\n';
+const objectArg = '$15\r\n[object Object]\r\n';
 
 /**
  * Faster for short strings less than 1024 in length.
@@ -19,10 +19,12 @@ var objectArg = '$15\r\n[object Object]\r\n';
  * @returns {*}
  */
 function byteLength(str) {
-  var s = str.length;
-  if (s > 1023) return Buffer.byteLength(str, 'utf8');
-  var i = s - 1;
+  if (str.length > 1023) return Buffer.byteLength(str, 'utf8');
+
   var code;
+  var s = str.length;
+  var i = s - 1;
+
   while (i--) {
     code = str.charCodeAt(i);
     if (code > 0x7f && code <= 0x7ff) s++;
@@ -96,7 +98,7 @@ function toWritable(cmd, args) {
     case 3:
       return '*4' + cmdPartial(cmd) + argWritable(args[0]) + argWritable(args[1]) + argWritable(args[2]);
     default:
-      var l = args.length;
+      const l = args.length;
       var writable = '*' + (l + 1) + cmdPartial(cmd);
       for (var i = 0; i < l; i++) {
         writable = writable + argWritable(args[i]);

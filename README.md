@@ -6,6 +6,16 @@
 [![License](https://img.shields.io/npm/l/redis-writable.svg)](/LICENSE)
 
 
+## Usage
+`npm i redis-writable`
+
+```javascript
+const rw = require('redis-writable');
+
+console.log(rw.toWritable('SET', ['foo', 'bar']);
+```
+
+
 ## Benchmarks
     Platform info:
     Darwin 15.6.0 x64

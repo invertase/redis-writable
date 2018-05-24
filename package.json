@@ -16,7 +16,7 @@
     "ioredis"
   ],
   "scripts": {
-    "test": "istanbul cover --report lcov _mocha",
+    "test": "node ./node_modules/istanbul/lib/cli.js cover --preserve-comments ./node_modules/mocha/bin/_mocha -- -R spec",
     "posttest": "npm run coveralls",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "benchmark": "node benchmark/"

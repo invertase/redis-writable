@@ -4,8 +4,8 @@ const cmdCache = {};
 const cmdCachePartial = {};
 
 const newLine = '\r\n';
-const zeroArg = '$1\r\n0\r\n';
 const oneArg = '$1\r\n1\r\n';
+const zeroArg = '$1\r\n0\r\n';
 const nullArg = '$4\r\nnull\r\n';
 const symbolArg = '$8\r\n[Symbol]\r\n';
 const undefArg = '$9\r\nundefined\r\n';
@@ -15,28 +15,42 @@ const objectArg = '$15\r\n[object Object]\r\n';
 /**
  * Faster for short strings less than 1024 in length.
  * Larger strings use Buffer.byteLength()
+ * Note: Purely for node 8. 9 + 10 are generally the same to use this or Buffer.byteLength
  * @param str
  * @returns {*}
  */
 function byteLength(str) {
-  if (str.length > 1023) return Buffer.byteLength(str, 'utf8');
+  if (str.length > 512) return Buffer.byteLength(str, 'utf8');
 
-  var code;
-  var s = str.length;
-  var i = s - 1;
+  var char;
+  var i = 0;
+  var byteLength = 0;
+  var len = str.length;
 
-  while (i--) {
-    code = str.charCodeAt(i);
-    if (code > 0x7f && code <= 0x7ff) s++;
-    else if (code > 0x7ff && code <= 0xffff) s += 2;
-    if (code >= 0xDC00 && code <= 0xDFFF) i--; // trail surrogate
+  for (; i < len; i++) {
+    char = str.charCodeAt(i);
+    if (char < 128) {
+      byteLength++;
+    } else if (char < 2048) {
+      byteLength += 2;
+    } else if (
+      (char & 0xfc00) === 0xd800 &&
+      i + 1 < len &&
+      (str.charCodeAt(i + 1) & 0xfc00) === 0xdc00
+    ) {
+      ++i;
+      byteLength += 4;
+    } else {
+      byteLength += 3;
+    }
   }
 
-  return s;
+  return byteLength;
 }
 
 /**
  * Commands with no args - cached.
+ *
  * @param cmd
  * @returns {*}
  */
@@ -46,6 +60,7 @@ function cmdWritable(cmd) {
 
 /**
  * Caches a cmd partial (without the *argLength) - cached.
+ *
  * @param cmd
  * @returns {*}
  */
@@ -56,6 +71,7 @@ function cmdPartial(cmd) {
 
 /**
  * Convert an arg based on it's primitive type.
+ *
  * @param arg
  * @returns {string}
  */
@@ -66,7 +82,7 @@ function argWritable(arg) {
       return '$' + byteLength('' + arg) + newLine + arg + newLine;
     case 'number':
       if (arg == 0) return zeroArg;
-      else if (arg == 1) return oneArg;
+      if (arg == 1) return oneArg;
       return '$' + byteLength('' + arg) + newLine + arg + newLine;
     case 'undefined':
       return undefArg;
@@ -77,13 +93,11 @@ function argWritable(arg) {
       return functionArg;
     case 'symbol':
       return symbolArg;
-    default:
-      return '$' + byteLength('' + arg) + newLine + arg + newLine;
   }
 }
 
 /**
- * Convert a CMD and args to a redis writable
+ * Convert a CMD and args to a redis writable string
  * @param cmd
  * @param args
  * @returns {string}
@@ -98,9 +112,10 @@ function toWritable(cmd, args) {
     case 3:
       return '*4' + cmdPartial(cmd) + argWritable(args[0]) + argWritable(args[1]) + argWritable(args[2]);
     default:
-      const l = args.length;
+      var i = 0;
+      var l = args.length;
       var writable = '*' + (l + 1) + cmdPartial(cmd);
-      for (var i = 0; i < l; i++) {
+      for (; i < l; i++) {
         writable = writable + argWritable(args[i]);
       }
       return writable;
@@ -108,3 +123,4 @@ function toWritable(cmd, args) {
 }
 
 module.exports = toWritable;
+module.exports.byteLength = byteLength;

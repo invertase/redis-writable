@@ -4,7 +4,6 @@ const toWritable = require('./../');
 
 console.log('\r\n');
 require('./print');
-console.log('\r\n');
 
 const largeStr = new Array(4096 + 1).join('-');
 
@@ -12,15 +11,15 @@ suite
   .add('byteLength small', function () {
     toWritable.byteLength('PING');
   })
-  .add('byteLength small - native', function () {
-    Buffer.byteLength('PING', 'utf8')
-  })
+  // .add('byteLength small - native', function () {
+  //   Buffer.byteLength('PING', 'utf8')
+  // })
   .add('byteLength large', function () {
     toWritable.byteLength(largeStr);
   })
-  .add('byteLength large - native', function () {
-    Buffer.byteLength(largeStr, 'utf8')
-  })
+  // .add('byteLength large - native', function () {
+  //   Buffer.byteLength(largeStr, 'utf8')
+  // })
 
   .add('0 ARGS', function () {
     return toWritable('PING');

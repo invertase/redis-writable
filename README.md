@@ -25,14 +25,19 @@ console.log(toWritable('SET', ['foo', 'bar']));
 
 
 ## Benchmarks
-    Platform info:
-    Darwin 15.6.0 x64
-    Node.JS 6.8.1
-    V8 5.1.281.84
-    Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz × 8
 
-    0 ARGS x 88,742,129 ops/sec ±0.80% (88 runs sampled)
-    1 arg x 11,682,574 ops/sec ±0.59% (92 runs sampled)
-    2 args x 9,972,395 ops/sec ±0.92% (90 runs sampled)
-    3 args x 4,324,455 ops/sec ±0.87% (91 runs sampled)
-    4+ args x 2,519,204 ops/sec ±1.30% (88 runs sampled)
+```text
+Platform info:
+Darwin 17.0.0 x64
+Node.JS 9.11.1
+V8 6.2.414.46-node.23
+Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz × 8
+
+byteLength small x 35,985,017 ops/sec ±0.33% (96 runs sampled)
+byteLength large x 1,954,952 ops/sec ±0.48% (95 runs sampled)
+0 ARGS x 368,105,019 ops/sec ±0.31% (91 runs sampled)
+1 arg x 12,872,611 ops/sec ±0.47% (93 runs sampled)
+2 args x 10,728,527 ops/sec ±0.53% (93 runs sampled)
+3 args x 9,021,635 ops/sec ±0.45% (97 runs sampled)
+4+ args x 6,356,287 ops/sec ±0.59% (95 runs sampled)
+```

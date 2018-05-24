@@ -1,6 +1,6 @@
 {
   "name": "redis-writable",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Ultra fast conversion of commands and args to redis protocol writables.",
   "main": "index.js",
   "engines": {

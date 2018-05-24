@@ -1,7 +1,7 @@
 # redis-writable
 
-[![Coverage Status](https://coveralls.io/repos/github/Salakar/redis-writable/badge.svg?branch=master)](https://coveralls.io/github/Salakar/redis-writable?branch=master)
-[![build](https://travis-ci.org/Salakar/redis-writable.svg)](https://travis-ci.org/Salakar/redis-writable)
+[![Coverage Status](https://coveralls.io/repos/github/salakar/redis-writable/badge.svg?branch=master)](https://coveralls.io/github/salakar/redis-writable?branch=master)
+[![build](https://travis-ci.org/salakar/redis-writable.svg)](https://travis-ci.org/salakar/redis-writable)
 [![npm version](https://img.shields.io/npm/v/redis-writable.svg)](https://www.npmjs.com/package/redis-writable)
 [![License](https://img.shields.io/npm/l/redis-writable.svg)](/LICENSE)
 

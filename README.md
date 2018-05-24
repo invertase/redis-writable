@@ -4,7 +4,7 @@
 [![build](https://travis-ci.org/Salakar/redis-writable.svg)](https://travis-ci.org/Salakar/redis-writable)
 [![npm version](https://img.shields.io/npm/v/redis-writable.svg)](https://www.npmjs.com/package/redis-writable)
 [![License](https://img.shields.io/npm/l/redis-writable.svg)](/LICENSE)
-
+<a href="https://twitter.com/mikediarmid"><img src="https://img.shields.io/twitter/follow/mikediarmid.svg?style=social&label=Follow" alt="Follow on Twitter"></a>
 
 ## Usage
 `npm i redis-writable`
